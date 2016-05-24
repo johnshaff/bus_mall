@@ -94,7 +94,7 @@ var randomator = function () {
   return Math.floor(Math.random() * objectList.length);
 };
 
-//Clearns global instance vars
+//Clears global instance vars
 var clearInstances = function () {
   instance1 = 0;
   instance2 = 0;
@@ -156,7 +156,7 @@ function drawChart() {
 }
 
 // function hideChart() {
-//   document.getElementById('funky-chart').hidden = true;
+//   document.getElementById('resultsChart').hidden = true;
 // }
 
 //EVENT HANDLERS
