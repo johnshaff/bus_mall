@@ -1,11 +1,12 @@
 body {
   margin: 0 auto;
-  max-width: auto;
+  max-width: 1100px;
   background-color: black;
 }
 
 main {
   padding: 1em;
+  height: 1000px;
   background-color: white;
 }
 
@@ -24,41 +25,41 @@ hgroup {
 }*/
 
 
-#p1 {
+#ps1 {
   float:left;
   width:30%;
   max-height: 175px;
   background-color: red;
 }
 
-#p1 img {
+#ps1 img {
   max-width:100%;
-  max-height:100%;
+  max-height:700px;
   margin:auto;
   display:block;
 }
 
-#p3 {
+#ps3 {
   float:right;
   width:30%;
   max-height: 175px;
   background-color:green;
 }
 
-#p3 img {
+#ps3 img {
   max-width:100%;
   max-height:100%;
   margin:auto;
   display:block;
 }
 
-#p2 {
+#ps2 {
   margin:auto;
   width:30%;
   background-color:blue;
 }
 
-#p2 img {
+#ps2 img {
   max-width:100%;
   max-height:100%;
   margin:auto;
