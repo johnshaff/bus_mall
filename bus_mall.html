@@ -3,7 +3,8 @@
 
   <head>
     <link type="text/css" rel="stylesheet" href="bus_mall.css"/>
-    <title> Bus Mall Survey </title>
+    <title>Chart.js Bus Mall Survey </title>
+    <script src="chart.js"></script>
   </head>
   <body>
 
@@ -20,16 +21,13 @@
         <section id="ps3"> <img id="rp3" src=''/> </section>
       </div>
         <br>
-          <!-- <button id="showResults" type="submit">Display Results!</button> -->
+        <div id="voting">
+          <button id="results">See Total Voting</button>
+        </div>
         <br>
-      <!-- <div class="content">
-      </div> -->
 
-
-
-      <canvas id="resultsSection">
-
-      </canvas>
+<canvas id="resultsChart" width="800px" height="400px">
+</canvas>
 
 
     </main>

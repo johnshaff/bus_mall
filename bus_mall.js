@@ -11,8 +11,8 @@ var instance2 = 0;
 var instance3 = 0;
 var totalClicks = 0;
 var objectList = [];
-// var clickArray = [];
-// var shownArray = [];
+var clickArray = [];
+var titleArray = [];
 
 function hotornot (imageName, filePath) {
   this.imageName = imageName;
@@ -28,6 +28,7 @@ hotornot.prototype.updateObjectList = function () {
 ps1.addEventListener('click', p1clickHandler);
 ps2.addEventListener('click', p2clickHandler);
 ps3.addEventListener('click', p3clickHandler);
+results.addEventListener('click', resultsHandler);
 // showResults.addEventListener('click', resultsHandler);
 
 //creates new instances
@@ -77,6 +78,15 @@ function createNewInstances() {
 };
 createNewInstances();
 
+//Updates titles array
+function updateTitleArray() {
+  for (var i = 0; i < objectList.length; i++) {
+    titleArray[i] = objectList[i].imageName;
+    clickArray[i] = objectList[i].tallyClick;
+  }
+}
+updateTitleArray();
+
 //creates a random number
 var randomator = function () {
   return Math.floor(Math.random() * objectList.length);
@@ -111,7 +121,35 @@ var surveySubmit = function () {
 };
 surveySubmit();
 
-//Conducts the customer survey
+//CHARTS
+
+// Creates a single object that contains my chart data
+var data = {
+  labels: titleArray, // Title array
+  datasets: [
+    {
+      data: clickArray, // Vote array
+    }]
+};
+
+//Creating the function that will draw the chart
+function drawChart() {
+  var ctx = document.getElementById('resultsChart').getContext('2d');
+  songChart = new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false
+    }
+  });
+  chartDrawn = true;
+}
+
+// function hideChart() {
+//   document.getElementById('funky-chart').hidden = true;
+// }
+
+//EVENT HANDLERS
 function p1clickHandler(event) {
   if (totalClicks > 24) {
     return;
@@ -139,6 +177,9 @@ function p3clickHandler(event) {
   surveySubmit();
 };
 
+document.getElementById('results').addEventListener('click', function(){
+  drawChart();
+});
 
 //DAN'S MATH
 // function randomator(someArray) {
