@@ -6,10 +6,13 @@ var ps3 = document.getElementById('ps3');
 var rp1 = document.getElementById('rp1');
 var rp2 = document.getElementById('rp2');
 var rp3 = document.getElementById('rp3');
-
+var instance1 = 0;
+var instance2 = 0;
+var instance3 = 0;
+var totalClicks = 0;
 var objectList = [];
-var clickArray = [];
-var shownArray = [];
+// var clickArray = [];
+// var shownArray = [];
 
 function hotornot (imageName, filePath) {
   this.imageName = imageName;
@@ -22,9 +25,9 @@ hotornot.prototype.updateObjectList = function () {
   objectList.push(this);
 };
 
-ps1.addEventListener('click', clickHandler);
-ps2.addEventListener('click', clickHandler);
-ps3.addEventListener('click', clickHandler);
+ps1.addEventListener('click', p1clickHandler);
+ps2.addEventListener('click', p2clickHandler);
+ps3.addEventListener('click', p3clickHandler);
 // showResults.addEventListener('click', resultsHandler);
 
 //creates new instances
@@ -79,59 +82,81 @@ var randomator = function () {
   return Math.floor(Math.random() * objectList.length);
 };
 
+//Clearns global instance vars
+var clearInstances = function () {
+  instance1 = 0;
+  instance2 = 0;
+  instance3 = 0;
+}
+
 //grabs an instance based on that random number
 var surveySubmit = function () {
-  var getInstance = function () {
-    instance1 = objectList[randomator()];
-    instance2 = objectList[randomator()];
-    instance3 = objectList[randomator()];
-  };
-  getInstance();
-
-  //Store three different random numbers
-  while (instance1 === instance2 || instance2 === instance3) {
+  clearInstances();
+  while (instance1 === instance2 || instance2 === instance3 || instance1 === instance3) {
     instance1 = objectList[randomator()]; //May be able to do .filePath
     instance2 = objectList[randomator()];
     instance3 = objectList[randomator()];
+    console.log(instance1, instance2, instance3);
   }
-  console.log(instance1);
-  console.log(instance2);
-  console.log(instance3);
-
   //Populate choices with the pics from the 3 different objects
   var voterRefresh = function () {
     rp1.src = instance1.filePath;
     rp2.src = instance2.filePath;
     rp3.src = instance3.filePath;
+    ++instance1.tallyShown;
+    ++instance2.tallyShown;
+    ++instance3.tallyShown;
   };
   voterRefresh();
 };
 surveySubmit();
 
-// var zeroArrays = function() {
-//   for (var i = 0; i < objectList.length; i++) {
-//     clickArray.push(0);
-//   }
-//
-//   for (var i = 0; i < objectList.length; i++) {
-//     shownArray.push(0);
-//   }
-// };
-
 //Conducts the customer survey
-function clickHandler(event) {
-  console.log('in handler');
-  surveySubmit();
-  ++instance1.tallyShown;
-  ++instance2.tallyShown;
-  ++instance3.tallyShown;
+function p1clickHandler(event) {
+  if (totalClicks > 24) {
+    return;
+  }
+  ++totalClicks;
   ++instance1.tallyClick;
-  ++instance2.tallyClick;
-  ++instance3.tallyClick;
-  console.log(instance1.tallyShown);
+  surveySubmit();
 };
 
-//Creates the results of the customer survey
-// function resultsHandler(event) {
-//   resultsSection.appendChild();
+function p2clickHandler(event) {
+  if (totalClicks > 24) {
+    return;
+  }
+  ++totalClicks;
+  ++instance2.tallyClick;
+  surveySubmit();
+};
+
+function p3clickHandler(event) {
+  if (totalClicks > 24) {
+    return;
+  }
+  ++totalClicks;
+  ++instance3.tallyClick;
+  surveySubmit();
+};
+
+
+
+//DAN'S MATH
+// function randomator(someArray) {
+//  return Math.floor(Math.random() * someArray.length);
 // }
+//
+// function getChoices() {
+//  var instance1 = ramdomator(objectList);
+//  var instance2 = ramdomator(objectList);
+//  var instance3 = ramdomator(objectList);
+//
+//  while (instance1 === instance2 || instance2 === instance3 || instance1 === instance3) {
+//    instance1 = randomator(objectList);
+//    instance2 = randomator(objectList);
+//    instance3 = randomator(objectList);
+//  }
+//
+//  return [instance2, instance2, instance3];
+// }
+// getChoices();
