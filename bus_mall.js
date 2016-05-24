@@ -87,7 +87,7 @@ var clearInstances = function () {
   instance1 = 0;
   instance2 = 0;
   instance3 = 0;
-}
+};
 
 //grabs an instance based on that random number
 var surveySubmit = function () {
@@ -138,7 +138,6 @@ function p3clickHandler(event) {
   ++instance3.tallyClick;
   surveySubmit();
 };
-
 
 
 //DAN'S MATH
