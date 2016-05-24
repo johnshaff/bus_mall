@@ -25,9 +25,9 @@ hotornot.prototype.updateObjectList = function () {
   objectList.push(this);
 };
 
-ps1.addEventListener('click', clickHandler);
-ps2.addEventListener('click', clickHandler);
-ps3.addEventListener('click', clickHandler);
+ps1.addEventListener('click', p1clickHandler);
+ps2.addEventListener('click', p2clickHandler);
+ps3.addEventListener('click', p3clickHandler);
 // showResults.addEventListener('click', resultsHandler);
 
 //creates new instances
@@ -82,9 +82,16 @@ var randomator = function () {
   return Math.floor(Math.random() * objectList.length);
 };
 
+//Clearns global instance vars
+var clearInstances = function () {
+  instance1 = 0;
+  instance2 = 0;
+  instance3 = 0;
+}
+
 //grabs an instance based on that random number
 var surveySubmit = function () {
-  //Store three different random numbers
+  clearInstances();
   while (instance1 === instance2 || instance2 === instance3 || instance1 === instance3) {
     instance1 = objectList[randomator()]; //May be able to do .filePath
     instance2 = objectList[randomator()];
@@ -101,21 +108,55 @@ var surveySubmit = function () {
     ++instance3.tallyShown;
   };
   voterRefresh();
-  instance1 = 0;
-  instance2 = 0;
-  instance3 = 0;
 };
 surveySubmit();
 
-
 //Conducts the customer survey
-function clickHandler(event) {
-  ++totalClicks;
-  surveySubmit();
-  ++instance1.tallyClick;
-  ++instance2.tallyClick;
-  ++instance3.tallyClick;
-  if (totalClicks === 25) {
+function p1clickHandler(event) {
+  if (totalClicks > 24) {
     return;
   }
+  ++totalClicks;
+  ++instance1.tallyClick;
+  surveySubmit();
 };
+
+function p2clickHandler(event) {
+  if (totalClicks > 24) {
+    return;
+  }
+  ++totalClicks;
+  ++instance2.tallyClick;
+  surveySubmit();
+};
+
+function p3clickHandler(event) {
+  if (totalClicks > 24) {
+    return;
+  }
+  ++totalClicks;
+  ++instance3.tallyClick;
+  surveySubmit();
+};
+
+
+
+//DAN'S MATH
+// function randomator(someArray) {
+//  return Math.floor(Math.random() * someArray.length);
+// }
+//
+// function getChoices() {
+//  var instance1 = ramdomator(objectList);
+//  var instance2 = ramdomator(objectList);
+//  var instance3 = ramdomator(objectList);
+//
+//  while (instance1 === instance2 || instance2 === instance3 || instance1 === instance3) {
+//    instance1 = randomator(objectList);
+//    instance2 = randomator(objectList);
+//    instance3 = randomator(objectList);
+//  }
+//
+//  return [instance2, instance2, instance3];
+// }
+// getChoices();
