@@ -25,11 +25,13 @@ hotornot.prototype.updateObjectList = function () {
   objectList.push(this);
 };
 
+//EVENT LISTENERS
 ps1.addEventListener('click', p1clickHandler);
 ps2.addEventListener('click', p2clickHandler);
 ps3.addEventListener('click', p3clickHandler);
-results.addEventListener('click', resultsHandler);
-// showResults.addEventListener('click', resultsHandler);
+document.getElementById('results').addEventListener('click', function(){
+  drawChart();
+});
 
 //creates new instances
 function createNewInstances() {
@@ -128,14 +130,22 @@ var data = {
   labels: titleArray, // Title array
   datasets: [
     {
+      label: "My First dataset",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            borderWidth: 1,
+            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+            hoverBorderColor: "rgba(255,99,132,1)",
       data: clickArray, // Vote array
     }]
 };
 
 //Creating the function that will draw the chart
 function drawChart() {
+  updateTitleArray();
   var ctx = document.getElementById('resultsChart').getContext('2d');
-  songChart = new Chart(ctx,{
+  console.log(data);
+  Chart = new Chart(ctx,{
     type: 'bar',
     data: data,
     options: {
@@ -177,9 +187,7 @@ function p3clickHandler(event) {
   surveySubmit();
 };
 
-document.getElementById('results').addEventListener('click', function(){
-  drawChart();
-});
+
 
 //DAN'S MATH
 // function randomator(someArray) {
