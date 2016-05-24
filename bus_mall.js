@@ -11,8 +11,8 @@ var instance2 = 0;
 var instance3 = 0;
 var totalClicks = 0;
 var objectList = [];
-// var clickArray = [];
-// var shownArray = [];
+var clickArray = [];
+var titleArray = [];
 
 function hotornot (imageName, filePath) {
   this.imageName = imageName;
@@ -25,10 +25,13 @@ hotornot.prototype.updateObjectList = function () {
   objectList.push(this);
 };
 
+//EVENT LISTENERS
 ps1.addEventListener('click', p1clickHandler);
 ps2.addEventListener('click', p2clickHandler);
 ps3.addEventListener('click', p3clickHandler);
-// showResults.addEventListener('click', resultsHandler);
+document.getElementById('results').addEventListener('click', function(){
+  drawChart();
+});
 
 //creates new instances
 function createNewInstances() {
@@ -77,6 +80,15 @@ function createNewInstances() {
 };
 createNewInstances();
 
+//Updates titles array
+function updateTitleArray() {
+  for (var i = 0; i < objectList.length; i++) {
+    titleArray[i] = objectList[i].imageName;
+    clickArray[i] = objectList[i].tallyClick;
+  }
+}
+updateTitleArray();
+
 //creates a random number
 var randomator = function () {
   return Math.floor(Math.random() * objectList.length);
@@ -87,7 +99,7 @@ var clearInstances = function () {
   instance1 = 0;
   instance2 = 0;
   instance3 = 0;
-}
+};
 
 //grabs an instance based on that random number
 var surveySubmit = function () {
@@ -111,7 +123,43 @@ var surveySubmit = function () {
 };
 surveySubmit();
 
-//Conducts the customer survey
+//CHARTS
+
+// Creates a single object that contains my chart data
+var data = {
+  labels: titleArray, // Title array
+  datasets: [
+    {
+      label: "My First dataset",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            borderWidth: 1,
+            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+            hoverBorderColor: "rgba(255,99,132,1)",
+      data: clickArray, // Vote array
+    }]
+};
+
+//Creating the function that will draw the chart
+function drawChart() {
+  updateTitleArray();
+  var ctx = document.getElementById('resultsChart').getContext('2d');
+  console.log(data);
+  Chart = new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false
+    }
+  });
+  chartDrawn = true;
+}
+
+// function hideChart() {
+//   document.getElementById('funky-chart').hidden = true;
+// }
+
+//EVENT HANDLERS
 function p1clickHandler(event) {
   if (totalClicks > 24) {
     return;
