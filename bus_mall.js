@@ -6,10 +6,13 @@ var ps3 = document.getElementById('ps3');
 var rp1 = document.getElementById('rp1');
 var rp2 = document.getElementById('rp2');
 var rp3 = document.getElementById('rp3');
-
+var instance1 = 0;
+var instance2 = 0;
+var instance3 = 0;
+var totalClicks = 0;
 var objectList = [];
-var clickArray = [];
-var shownArray = [];
+// var clickArray = [];
+// var shownArray = [];
 
 function hotornot (imageName, filePath) {
   this.imageName = imageName;
@@ -81,57 +84,38 @@ var randomator = function () {
 
 //grabs an instance based on that random number
 var surveySubmit = function () {
-  var getInstance = function () {
-    instance1 = objectList[randomator()];
-    instance2 = objectList[randomator()];
-    instance3 = objectList[randomator()];
-  };
-  getInstance();
-
   //Store three different random numbers
-  while (instance1 === instance2 || instance2 === instance3) {
+  while (instance1 === instance2 || instance2 === instance3 || instance1 === instance3) {
     instance1 = objectList[randomator()]; //May be able to do .filePath
     instance2 = objectList[randomator()];
     instance3 = objectList[randomator()];
+    console.log(instance1, instance2, instance3);
   }
-  console.log(instance1);
-  console.log(instance2);
-  console.log(instance3);
-
   //Populate choices with the pics from the 3 different objects
   var voterRefresh = function () {
     rp1.src = instance1.filePath;
     rp2.src = instance2.filePath;
     rp3.src = instance3.filePath;
+    ++instance1.tallyShown;
+    ++instance2.tallyShown;
+    ++instance3.tallyShown;
   };
   voterRefresh();
+  instance1 = 0;
+  instance2 = 0;
+  instance3 = 0;
 };
 surveySubmit();
 
-// var zeroArrays = function() {
-//   for (var i = 0; i < objectList.length; i++) {
-//     clickArray.push(0);
-//   }
-//
-//   for (var i = 0; i < objectList.length; i++) {
-//     shownArray.push(0);
-//   }
-// };
 
 //Conducts the customer survey
 function clickHandler(event) {
-  console.log('in handler');
+  ++totalClicks;
   surveySubmit();
-  ++instance1.tallyShown;
-  ++instance2.tallyShown;
-  ++instance3.tallyShown;
   ++instance1.tallyClick;
   ++instance2.tallyClick;
   ++instance3.tallyClick;
-  console.log(instance1.tallyShown);
+  if (totalClicks === 25) {
+    return;
+  }
 };
-
-//Creates the results of the customer survey
-// function resultsHandler(event) {
-//   resultsSection.appendChild();
-// }
