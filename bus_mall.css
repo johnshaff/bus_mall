@@ -1,5 +1,5 @@
 * {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 
@@ -11,7 +11,7 @@ body {
 
 main {
   padding: 1em;
-  height: 1000px;
+  height: 500px;
   background-color: white;
 }
 
@@ -46,6 +46,6 @@ section img {
   width: 32%;
 }
 
-#showResults {
-  float: left;
+#resultsChart {
+  margin-left: 10%;
 }
