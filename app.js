@@ -1,14 +1,3 @@
-// if (Array.isArray(JSON.parse(localStorage.getItem('lsClickArray')))) {
-//   clickArray = JSON.parse(localStorage.getItem('lsClickArray'));
-// };
-var clickArray = [];
-//
-// if (Array.isArray(JSON.parse(localStorage.getItem('lsClickArray')))) {
-//   var clickAdd = JSON.parse(localStorage.getItem('lsClickArray'));
-//   for (i = 0; i < 21; i++) {
-//     clickArray[i] += clickAdd[i];
-//   }
-// }
 
 var showResults = document.getElementById('showResults');
 var resultsSection = document.getElementById('resultsSection');
@@ -24,6 +13,7 @@ var instance3 = 0;
 var totalClicks = 0;
 var objectList = [];
 var titleArray = [];
+var clickArray = [];
 
 function hotornot (imageName, filePath) {
   this.imageName = imageName;
@@ -116,11 +106,7 @@ var surveySubmit = function () {
 };
 surveySubmit();
 
-//Adds all clicks
-
-
 //CHARTS
-// Creates a single object that contains my chart data
 var data = {
   labels: titleArray, // Title array
   datasets: [
@@ -189,14 +175,3 @@ function p3clickHandler(event) {
   ++instance3.tallyClick;
   surveySubmit();
 };
-
-// localStorage.setItem('lsClickArray', JSON.stringify(clickArray));
-
-
-// lsClickArray = JSON.parse(localStorage.getItem('lsClickArray'));
-// for (i = 0; i < objectList.length; i++) {
-//   lsClickArray
-// }
-// else {
-//   DisplayPics();
-// }
