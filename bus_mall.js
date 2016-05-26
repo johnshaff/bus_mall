@@ -1,3 +1,15 @@
+// if (Array.isArray(JSON.parse(localStorage.getItem('lsClickArray')))) {
+//   clickArray = JSON.parse(localStorage.getItem('lsClickArray'));
+// };
+var clickArray = [];
+//
+// if (Array.isArray(JSON.parse(localStorage.getItem('lsClickArray')))) {
+//   var clickAdd = JSON.parse(localStorage.getItem('lsClickArray'));
+//   for (i = 0; i < 21; i++) {
+//     clickArray[i] += clickAdd[i];
+//   }
+// }
+
 var showResults = document.getElementById('showResults');
 var resultsSection = document.getElementById('resultsSection');
 var ps1 = document.getElementById('ps1');
@@ -11,7 +23,6 @@ var instance2 = 0;
 var instance3 = 0;
 var totalClicks = 0;
 var objectList = [];
-var clickArray = [];
 var titleArray = [];
 
 function hotornot (imageName, filePath) {
@@ -65,6 +76,13 @@ function updateTitleArray() {
 }
 updateTitleArray();
 
+function updateClickArray() {
+  for (var i = 0; i < objectList.length; i++) {
+    clickArray[i] = objectList[i].tallyClick;
+  }
+}
+updateClickArray();
+
 //creates a random number
 var randomator = function () {
   return Math.floor(Math.random() * objectList.length);
@@ -84,7 +102,6 @@ var surveySubmit = function () {
     instance1 = objectList[randomator()]; //May be able to do .filePath
     instance2 = objectList[randomator()];
     instance3 = objectList[randomator()];
-    console.log(instance1, instance2, instance3);
   }
   //Populate choices with the pics from the 3 different objects
   var voterRefresh = function () {
@@ -98,6 +115,9 @@ var surveySubmit = function () {
   voterRefresh();
 };
 surveySubmit();
+
+//Adds all clicks
+
 
 //CHARTS
 // Creates a single object that contains my chart data
@@ -118,8 +138,20 @@ var data = {
 //Creating the function that will draw the chart
 function drawChart() {
   updateTitleArray();
+  if (Array.isArray(JSON.parse(localStorage.getItem('lsClickArray')))) {
+    var clickAdd = JSON.parse(localStorage.getItem('lsClickArray'));
+    console.log(clickAdd);
+    for (i = 0; i < 21; i++) {
+      clickArray[i] += clickAdd[i];
+    }
+    console.log(clickArray);
+    localStorage.setItem('lsClickArray', JSON.stringify(clickArray));
+  }
+  else {
+    localStorage.setItem('lsClickArray', JSON.stringify(clickArray));
+  }
+
   var ctx = document.getElementById('resultsChart').getContext('2d');
-  console.log(data);
   Chart = new Chart(ctx,{
     type: 'bar',
     data: data,
@@ -157,3 +189,14 @@ function p3clickHandler(event) {
   ++instance3.tallyClick;
   surveySubmit();
 };
+
+// localStorage.setItem('lsClickArray', JSON.stringify(clickArray));
+
+
+// lsClickArray = JSON.parse(localStorage.getItem('lsClickArray'));
+// for (i = 0; i < objectList.length; i++) {
+//   lsClickArray
+// }
+// else {
+//   DisplayPics();
+// }
